@@ -17,6 +17,8 @@ public class DruidDemoApplication implements CommandLineRunner {
     DataSource dataSource;
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    FooService fooService;
 
     public static void main(String[] args) {
         SpringApplication.run(DruidDemoApplication.class, args);
@@ -27,5 +29,8 @@ public class DruidDemoApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         log.info(dataSource.toString());
+
+        new Thread(() -> fooService.selectForUpdate()).start();
+        new Thread(() -> fooService.selectForUpdate()).start();
     }
 }
